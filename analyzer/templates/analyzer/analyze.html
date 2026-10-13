@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Анализ страницы</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Анализ веб-страницы</h1>
+    </header>
+    <div class="container">
+        <p>Введите URL страницы для анализа:</p>
+        <form method="post" action="{% url 'analyze' %}">
+            {% csrf_token %}
+            <input type="text" name="url" placeholder="https://example.com" required>
+            <button type="submit">Анализировать</button>
+        </form>
+        <p><a href="/">Вернуться на главную</a></p>
+    </div>
+    <footer>
+        <p>&copy; 2023 SEO-инструмент</p>
+    </footer>
+</body>
+</html>

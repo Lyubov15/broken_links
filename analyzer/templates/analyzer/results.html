@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты анализа</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Результаты анализа</h1>
+    </header>
+    <div class="container">
+        <p>URL: <strong>{{ page.url }}</strong></p>
+        <p>Дата проверки: {{ page.check_date }}</p>
+        <p>Валидность HTML: 
+            {% if page.is_valid_html %}
+                <span class="valid">Валидный</span>
+            {% else %}
+                <span class="invalid">Невалидный</span>
+            {% endif %}
+        </p>
+        
+        {% if errors %}
+        <h2>Ошибки</h2>
+        <ul>
+            {% for error in errors %}
+                <li>{{ error.description }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        {% if links %}
+        <h2>Найденные ссылки</h2>
+        <table>
+            <tr>
+                <th>URL</th>
+                <th>Тип</th>
+                <th>Статус</th>
+            </tr>
+            {% for link in links %}
+            <tr>
+                <td>{{ link.url }}</td>
+                <td>{{ link.link_type }}</td>
+                <td class="{% if link.status_code == 200 %}status-200{% elif link.status_code == 0 %}status-error{% endif %}">
+                    {{ link.status_code }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        
+        <p><a href="/analyze">Анализировать другую страницу</a> | <a href="/">Вернуться на главную</a></p>
+    </div>
+    <footer>
+        <p>&copy; 2025 SEO-инструмент</p>
+    </footer>
+</body>
+</html>
